@@ -55,9 +55,19 @@ run the discovery commands below on the actual ROS2 computer.
   - `config/params.yaml`, `launch/localize.launch.py`, `package.xml`, `setup.py` — standard.
 
 ### Get the code onto the target ROS2 machine
-Both the CELL repo and `cell_ros2_ws` must be present. Use git (push from here, clone there) or
-rsync over Tailscale. Then point `cell_root` in `params.yaml` at the CELL checkout, and make the
-CELL conda env (torch + compiled extensions `visibility`/`correlation`/`mathutils`) importable.
+Both the CELL repo and this workspace must be present:
+```bash
+# this ROS2 workspace (public):
+git clone https://github.com/panagiotisq/cell_ros2_ws.git
+# CELL (the method) — clone as a READ-ONLY dependency:
+git clone https://github.com/panagiotisq/CELL.git
+```
+**Do NOT commit to the CELL repo from the deployment machine.** `github.com/panagiotisq/CELL` is the
+official repo referenced by the paper and must stay untouched. All deployment work happens only in
+`cell_ros2_ws`. CELL is consumed as a dependency (the node imports from it), never edited.
+
+Then point `cell_root` in `params.yaml` at the CELL checkout, and make the CELL conda env (torch +
+compiled extensions `visibility`/`correlation`/`mathutils`, rebuilt on the target's CUDA) importable.
 
 ---
 
