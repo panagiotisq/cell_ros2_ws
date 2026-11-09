@@ -1,0 +1,45 @@
+# CELL localizer node parameters.
+# ros2 launch cell_localization localize.launch.py   (reads this file)
+cell_localization:
+  ros__parameters:
+    # --- CELL code + weights ---------------------------------------------------
+    cell_root: "/home/panosk/CELL"          # added to sys.path so `import core...` works
+    checkpoint: "/home/panosk/CELL/checkpoints/falcon_indoor_flight_3/best_model.pth"  # TODO: real path
+    device: "cuda:0"
+
+    # --- geometry (resolve from CELL scene_config OR set explicitly) -----------
+    # If `scene` is non-empty, crop/max_depth are taken from CELL core.scene_config.
+    # Otherwise the explicit values below are used. Intrinsics come from CameraInfo
+    # (or override with fx/fy/cx/cy here if no CameraInfo is published).
+    scene: "falcon_indoor_flight_3"         # "" to use explicit crop/max_depth
+    crop: [288, 512, 36, 64]                # [CH, CW, CX, CY] (center-crop) if scene==""
+    max_depth: 10.0                         # metres; local-map z-ceiling for this scene
+    fx: 0.0                                  # 0 => take intrinsics from CameraInfo
+    fy: 0.0
+    cx: 0.0
+    cy: 0.0
+
+    # --- inference -------------------------------------------------------------
+    iters: 24                               # IFR iterations at inference
+    select: "floor0"                        # deployed selection rule (probabilistic keep w.p. conf_norm)
+    pweight_seed: 0
+
+    # --- event representation (STC/Trail time-surface) -------------------------
+    event_window_us: 100000                 # 100 ms rolling lookback (matches event2frame.py)
+    half_resolution: true                   # falcon/indoor/day reps are _half; night uses full
+    representation_backend: "sdk_free"      # "sdk" (Metavision) | "sdk_free" (numba STC/Trail)
+                                            # TODO: confirm which the drone-space PC can run
+
+    # --- prior LiDAR map -------------------------------------------------------
+    map_file: "/path/to/global_map.pcd"     # TODO: the prior map for the deployment scene
+    local_map_radius_m: 30.0                # crop radius around the pose guess (TODO: match generate_local_maps.py)
+
+    # --- frames / topics -------------------------------------------------------
+    map_frame: "map"
+    camera_frame: "camera"
+    publish_tf: true
+
+    events_topic: "/event_camera/events"    # TODO(sensor): real topic + message type
+    pose_guess_topic: "/pose_guess"          # geometry_msgs/PoseStamped — the coarse initial guess
+    camera_info_topic: "/event_camera/camera_info"
+    pose_out_topic: "/cell/pose"             # geometry_msgs/PoseStamped — estimated absolute pose

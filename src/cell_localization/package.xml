@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cell_localization</name>
+  <version>0.0.1</version>
+  <description>
+    CELL — Confidence-weighted Event-camera Localization in LiDAR maps.
+    ROS 2 node that relocalizes an event camera inside a prior LiDAR map from a
+    coarse initial pose guess (rosbag-replay). Wraps CELL inference:
+    event stream -> STC/Trail representation -> flow + per-correspondence confidence
+    -> floor0 selection -> PnP -> PoseStamped. Edge refinement is intentionally excluded.
+  </description>
+  <maintainer email="pkious2003@gmail.com">Panagiotis Kiousis</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <!-- TODO(sensor): add the event-camera message package once the sensor is known, e.g.
+       <exec_depend>event_camera_msgs</exec_depend>   (Prophesee / Metavision ROS 2 driver)
+       <exec_depend>dvs_msgs</exec_depend>             (DVS / DAVIS) -->
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
