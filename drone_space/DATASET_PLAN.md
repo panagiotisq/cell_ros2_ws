@@ -26,11 +26,10 @@ set. This dataset later validates the `cell_localization` ROS 2 package in this 
 ## Calibration — RECEIVED (see `calib/` + `CALIBRATION.md`)
 - **Event-camera intrinsics** ✓ — fx=fy=1687.45, cx=653.36, cy=351.42, 1280×720, OpenCV distortion;
   calibration RMS 0.408 px. In `calib/intrinsics.json`.
-- **Extrinsic** `T_body_camera` ✓ — in `calib/T_body_camera.txt`. **Convention still to be confirmed**
-  (camera→body assumed): `T_world_camera = T_world_body · T_body_camera`.
+- **Extrinsic** `T_body_camera` ✓ — in `calib/T_body_camera.txt`. Convention **CONFIRMED camera→body**:
+  `T_world_camera = T_world_body · T_body_camera`.
 
 ## Still to confirm
-- **Extrinsic convention** (camera→body vs body→camera) — one sanity check on real data.
 - **Time sync** between events and mocap poses in the bag (same clock? µs?).
 - **Event topic name + message type** (for decoding events into frames).
 - Reconstruction **scale reference** (control points vs a known-size object placed in the scene).

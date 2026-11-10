@@ -23,17 +23,13 @@ Files in `calib/`:
 ## Extrinsic `T_body_camera`
 4×4, metres, row-major. Rotation ≈ **3° about X**; translation ≈ **[−2.1, −2.1, 0.7] cm**.
 
-**Assumed convention:** `T_body_camera` maps a point/pose from the **camera** frame into the **body**
-(mocap rigidbody) frame — i.e. it is the camera's pose expressed in the body frame. Under that
-convention the camera's world pose per timestamp is:
+**Convention (CONFIRMED by the owner): camera→body.** `T_body_camera` maps a point/pose from the
+**camera** frame into the **body** (mocap rigidbody) frame — i.e. it is the camera's pose expressed in
+the body frame. The camera's world pose per timestamp is therefore:
 
 ```
 T_world_camera = T_world_body (from mocap) · T_body_camera
 ```
-
-> ⚠️ **Confirm the convention with the owner** before trusting sequences: is it `T_body_camera`
-> (camera→body, as assumed here) or its inverse (body→camera)? A flipped convention silently
-> mis-renders every depth map. One quick sanity check on real data settles it.
 
 ## Still pending (ask the owner)
 - [ ] **Time sync** — are events and mocap poses on the same clock? units (µs)?
