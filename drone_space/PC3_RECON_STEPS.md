@@ -77,6 +77,12 @@ colmap -h >/dev/null && echo "colmap OK"
 If conda is absent and the user grants sudo on Ubuntu 20.04+: `sudo apt install colmap ffmpeg`.
 Otherwise ask the user (an AppImage/Docker fallback exists).
 
+> **COLMAP version note:** conda-forge currently ships **COLMAP 4.2.1**, which **renamed** some options
+> relative to the COLMAP 3.x docs/examples found online. Use `--FeatureExtraction.use_gpu` (NOT the old
+> `--SiftExtraction.use_gpu`); GPU is on by default. The `automatic_reconstructor` command in Step 5 is
+> unchanged and works as written. If any step-by-step COLMAP command errors with *"unrecognised
+> option"*, this rename is why — check `colmap <command> -h` for the current flag name.
+
 ### Step 3 — STOP and ask the user for the room video
 > "Environment ready (GPU: yes/no). Please shoot a phone video of the room — slow, steady, full
 >  coverage, 70–80% overlap, multiple heights/angles, even light, no motion blur, ~1–3 min — and put
