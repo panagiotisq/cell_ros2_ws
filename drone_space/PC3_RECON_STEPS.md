@@ -20,13 +20,30 @@ the capture can be re-shot immediately if it's poor. This cloud becomes CELL's p
    git clone https://github.com/panagiotisq/cell_ros2_ws.git
    mkdir -p ~/workspaces/ros/panos_recon/{video,frames,colmap}
    ```
-2. Install Claude Code if absent (user-space Node via nvm — no sudo):
+2. Install Claude Code if absent (user-space Node via nvm — no sudo). Copy-paste the whole block;
+   the `export`/source lines are what make `node` appear in the current shell (the #1 gotcha):
    ```bash
-   node --version     # need >= 18; if missing/old:
+   # a) install nvm
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-   exec $SHELL && nvm install 20
+
+   # b) load nvm into THIS shell (installer does NOT do this for the current session)
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+   # c) install Node 20 and verify
+   nvm install 20
+   node --version        # expect v20.x
+   npm --version
+
+   # d) install Claude Code
    npm install -g @anthropic-ai/claude-code
+   claude --version
    ```
+   Troubleshooting:
+   - `nvm: command not found` after (a) → you skipped (b); run the two `export`/source lines, or open
+     a new terminal.
+   - `curl: command not found` → `sudo apt install curl` (or use `wget`); if no sudo, ask.
+   - `node` still missing after (c) → run `nvm use 20`, then re-check `node --version`.
 3. Open Claude one level **above** your files, and give it this doc:
    ```bash
    cd ~/workspaces/ros
