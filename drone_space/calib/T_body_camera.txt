@@ -1,0 +1,7 @@
+# T_body_camera : 4x4 homogeneous transform, camera frame -> mocap rigidbody ("body") frame.
+# Provided by the camera/mocap setup owner. Rotation ~3 deg about X; translation ~[-2.1, -2.1, 0.7] cm.
+# Row-major, metres.
+ 1.0000000   0.0000000   0.0000000  -0.0205540
+ 0.0000000   0.9986295  -0.0523360  -0.0207880
+ 0.0000000   0.0523360   0.9986295   0.0066244
+ 0.0000000   0.0000000   0.0000000   1.0000000

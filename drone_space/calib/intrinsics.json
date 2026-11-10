@@ -1,0 +1,30 @@
+{
+    "_note": "Event-camera intrinsics from checkerboard calibration (6x9, 31.79mm squares, 50 views). Per-view rvecs/tvecs from the original calibration output are OMITTED here (calibration-session artifacts, not used downstream); keep the colleague's original file if those are ever needed.",
+    "n_kept_views": 50,
+    "image_size": [ 1280, 720 ],
+    "pattern": {
+        "n_rows": 6,
+        "n_cols": 9,
+        "square_height": 3.1789999455213547e-02,
+        "square_width": 3.1789999455213547e-02
+    },
+    "camera_matrix": {
+        "type_id": "opencv-matrix",
+        "rows": 3,
+        "cols": 3,
+        "dt": "d",
+        "data": [ 1.6874514251875887e+03, 0.0, 6.5335913097450623e+02,
+            0.0, 1.6874514251875887e+03, 3.5142057452312019e+02,
+            0.0, 0.0, 1.0 ]
+    },
+    "distortion_coefficients": {
+        "type_id": "opencv-matrix",
+        "rows": 1,
+        "cols": 5,
+        "dt": "d",
+        "model": "opencv (k1, k2, p1, p2, k3)",
+        "data": [ -6.5125807106850564e-02, 3.2774961738841685e-01,
+            -6.4430623840829274e-05, 9.6766049546820603e-04, 0.0 ]
+    },
+    "overall_rms_reprojection_error": 4.0840154886245728e-01
+}
