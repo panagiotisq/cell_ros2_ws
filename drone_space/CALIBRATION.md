@@ -31,6 +31,11 @@ the body frame. The camera's world pose per timestamp is therefore:
 T_world_camera = T_world_body (from mocap) · T_body_camera
 ```
 
-## Still pending (ask the owner)
-- [ ] **Time sync** — are events and mocap poses on the same clock? units (µs)?
-- [ ] **Event topic name + message type** (for decoding events into frames later).
+## Resolved
+- **Time sync** — confirmed from an existing test bag on PC-C
+  (`EV_project/data/2026-11-10-15-10-48.bag`): events and mocap poses share **one ROS time base**
+  (`header.stamp`, seconds) — ranges overlap correctly (pose 1794319848.47–853.38s, events
+  1794319849.81–853.01s, fully inside the pose range). No separate clock/offset to correct for.
+- **Event topic + message type** — confirmed from the same bag + `prophesee_ros_wrapper` source:
+  - Events: `/prophesee/camera/cd_events_buffer`, type `prophesee_event_msgs/EventArray`
+  - Mocap pose: `/mocap_node/evk4/pose`, type `geometry_msgs/PoseStamped` (rigidbody ID 33, `evk4.yaml`)

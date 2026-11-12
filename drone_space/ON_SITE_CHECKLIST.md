@@ -51,10 +51,14 @@ the fit is far better than matching natural features by eye. The extra clip gets
 off-site.
 
 ## 3. Get from the colleague (gates the later steps)
-- [ ] **Event-camera intrinsics** — fx, fy, cx, cy + distortion. Already calibrated? Is there a file?
-- [ ] **Rigidbody → camera extrinsic** — the value AND its convention (which transform, which frames).
-- [ ] **Time sync** — are events and mocap poses on the **same clock**? What units (µs?)?
-- [ ] **Event topic name + message type** (needed to decode events later).
+- [x] **Event-camera intrinsics** — see `CALIBRATION.md` / `calib/intrinsics.json`.
+- [x] **Rigidbody → camera extrinsic** — see `CALIBRATION.md` / `calib/T_body_camera.txt`.
+      Convention confirmed by the owner: **camera → body** (`T_world_camera = T_world_body · T_body_camera`).
+- [x] **Time sync** — confirmed from an existing PC-C test bag: events and mocap poses share one
+      ROS time base (seconds), no offset. See `CALIBRATION.md`.
+- [x] **Event topic name + message type** — `/prophesee/camera/cd_events_buffer`
+      (`prophesee_event_msgs/EventArray`); mocap on `/mocap_node/evk4/pose`
+      (`geometry_msgs/PoseStamped`). See `CALIBRATION.md`.
 
 ## 4. Before you leave — confirm you have
 - [ ] 3 rosbags, each verified (both streams present, time-synced)

@@ -6,3 +6,6 @@ log/
 # python
 __pycache__/
 *.pyc
+EV_project/
+panos_recon_demo_videos/
+*.stale_pre_axisfix
